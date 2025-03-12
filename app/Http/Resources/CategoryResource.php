@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+
 class CategoryResource extends JsonResource
 {
     /**
@@ -18,7 +19,8 @@ class CategoryResource extends JsonResource
         return [
             'id'=>$this->id,
            'name'=>$this->name,
-           'sub_category' => $this->subCategory ? $this->subCategory->name : null,
+           'sub_category' => CategoryResource::collection($this->subCategory),
+
             ];
     }
 }

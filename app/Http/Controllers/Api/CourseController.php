@@ -19,11 +19,6 @@ class CourseController extends Controller
         $this->courseRepositoryInterface = $courseRepositoryInterface;
     }
 
-    public function index()
-    {
-        $data = $this->courseRepositoryInterface->index();
-        return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
-    }
 
     public function store(StoreCourseRequest $request)
     {
