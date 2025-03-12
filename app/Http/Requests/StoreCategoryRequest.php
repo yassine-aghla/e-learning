@@ -23,8 +23,8 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'categorie_id' => 'required'
+            'name' => 'nullable',
+            'categorie_id' => 'nullable'
         ];
     }
 

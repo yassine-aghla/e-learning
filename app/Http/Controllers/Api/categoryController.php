@@ -90,7 +90,7 @@ class categoryController extends Controller
             $categorie = $this->CategoryRepositoryInterface->update($updateDetails,$id);
 
              DB::commit();
-             return ApiResponseClass::sendResponse('Categorie Update Successful','',201);
+             return ApiResponseClass::sendResponse('Categorie Update Successful','',200);
 
         }catch(\Exception $ex){
             return ApiResponseClass::rollback($ex);
