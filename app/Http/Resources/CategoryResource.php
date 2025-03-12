@@ -18,8 +18,7 @@ class CategoryResource extends JsonResource
         return [
             'id'=>$this->id,
            'name'=>$this->name,
-           'categorie_id'=>$this->categorie_id,
-
-        ];
+           'sub_category' => $this->subCategory ? $this->subCategory->name : null,
+            ];
     }
 }

@@ -51,7 +51,7 @@ class categoryController extends Controller
             $categorie = $this->CategoryRepositoryInterface->store($details);
 
              DB::commit();
-             return ApiResponseClass::sendResponse(new CategoryResource($categorie),'Product Create Successful',201);
+             return ApiResponseClass::sendResponse(new CategoryResource($categorie),'Categorie Create Successful',201);
 
         }catch(\Exception $ex){
             return ApiResponseClass::rollback($ex);
@@ -65,7 +65,7 @@ class categoryController extends Controller
     {
         $categorie= $this->CategoryRepositoryInterface->getById($id);
 
-        return ApiResponseClass::sendResponse(new CategorieResource($categorie),'',200);
+        return ApiResponseClass::sendResponse(new CategoryResource($categorie),'',200);
     }
 
     /**
@@ -90,7 +90,7 @@ class categoryController extends Controller
             $categorie = $this->CategoryRepositoryInterface->update($updateDetails,$id);
 
              DB::commit();
-             return ApiResponseClass::sendResponse('Product Update Successful','',201);
+             return ApiResponseClass::sendResponse('Categorie Update Successful','',201);
 
         }catch(\Exception $ex){
             return ApiResponseClass::rollback($ex);
@@ -104,6 +104,6 @@ class categoryController extends Controller
     {
          $this->CategoryRepositoryInterface->delete($id);
 
-        return ApiResponseClass::sendResponse('Product Delete Successful','',204);
+        return ApiResponseClass::sendResponse('Categorie Delete Successful','',204);
     }
 }

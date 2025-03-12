@@ -26,20 +26,30 @@ class TagController extends Controller
     }
 
     public function store(StoreTagRequest $request)
-    {
-        $details = [
-            'name' => $request->name,
-        ];
+{
+    $tagsData = $request->tags; // Récupère les tags sous forme de tableau
 
-        DB::beginTransaction();
-        try {
-            $tag = $this->tagRepositoryInterface->store($details);
-            DB::commit();
-            return ApiResponseClass::sendResponse(new TagResource($tag), 'Tag Created Successfully', 201);
-        } catch (\Exception $ex) {
-            return ApiResponseClass::rollback($ex);
+    DB::beginTransaction();
+    try {
+        $tags = [];
+        foreach ($tagsData as $tag) {
+            $tags[] = [
+                'name' => $tag['name'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
+
+        // Insertion en masse
+        Tag::insert($tags);
+
+        DB::commit();
+        return ApiResponseClass::sendResponse('Tags Created Successfully', '', 201);
+    } catch (\Exception $ex) {
+        DB::rollback();
+        return ApiResponseClass::sendResponse('Error while inserting tags', $ex->getMessage(), 500);
     }
+}
 
     public function show($id)
     {
