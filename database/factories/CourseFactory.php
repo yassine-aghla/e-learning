@@ -13,7 +13,7 @@ class CourseFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->text(200),
             'content' => $this->faker->text,
             'video' => $this->faker->url,
             'cover' => $this->faker->imageUrl(),

@@ -23,11 +23,14 @@ class CourseRepository implements CourseRepositoryInterface
 
     public function update(array $data, $id)
     {
-        return Course::whereId($id)->update($data);
+        $course = Course::findOrFail($id);
+        $course->update($data);
+        return $course;
     }
 
     public function delete($id)
     {
-        Course::destroy($id);
+        $course = Course::findOrFail($id);
+        $course->delete();
     }
 }

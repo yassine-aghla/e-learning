@@ -53,34 +53,43 @@ class CourseController extends Controller
     }
 
     public function update(UpdateCourseRequest $request, $id)
-    {
-        $updateDetails = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'content' => $request->content,
-            'video' => $request->video,
-            'cover' => $request->cover,
-            'duration' => $request->duration,
-            'level' => $request->level,
-            'category_id' => $request->category_id,
-        ];
+{
+    $updateDetails = [
+        'title' => $request->title,
+        'description' => $request->description,
+        'content' => $request->content,
+        'video' => $request->video,
+        'cover' => $request->cover,
+        'duration' => $request->duration,
+        'level' => $request->level,
+        'category_id' => $request->category_id,
+    ];
 
-        DB::beginTransaction();
-        try {
-            $course = $this->courseRepositoryInterface->update($updateDetails, $id);
-            if ($request->has('tag_ids')) {
-                $course->tags()->sync($request->tag_ids);
-            }
-            DB::commit();
-            return ApiResponseClass::sendResponse('Course Updated Successfully', '', 200);
-        } catch (\Exception $ex) {
-            return ApiResponseClass::rollback($ex);
+    DB::beginTransaction();
+    try {
+        $course = $this->courseRepositoryInterface->update($updateDetails, $id);
+        if ($request->has('tag_ids')) {
+            $course->tags()->sync($request->tag_ids); // Utilisez l'objet Course retourné
         }
+        DB::commit();
+        return ApiResponseClass::sendResponse('Course Updated Successfully', '', 200);
+    } catch (\Exception $ex) {
+        return ApiResponseClass::rollback($ex);
     }
+}
 
-    public function destroy($id)
-    {
-        $this->courseRepositoryInterface->delete($id);
+public function destroy($id)
+{
+    DB::beginTransaction();
+    try {
+        $course = $this->courseRepositoryInterface->getById($id);
+        $course->tags()->detach(); // Détache les tags associés
+        $this->courseRepositoryInterface->delete($id); // Supprime le cours
+        DB::commit();
         return ApiResponseClass::sendResponse('Course Deleted Successfully', '', 204);
+    } catch (\Exception $ex) {
+        DB::rollback();
+        return ApiResponseClass::rollback($ex);
     }
+}
 }
