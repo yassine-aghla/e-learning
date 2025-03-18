@@ -18,7 +18,10 @@ class Category extends Model
         return $this->hasMany(Category::class, 'categorie_id');
     }
 
-    
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 
 
 }

@@ -20,6 +20,7 @@ class Course extends Model
         'duration',
         'level',
         'category_id',
+        'status',
     ];
 
     protected $casts = [

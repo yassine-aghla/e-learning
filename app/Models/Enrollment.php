@@ -17,7 +17,7 @@ class Enrollment extends Model
     protected $fillable = [
         'course_id',
         'user_id',
-        'status', // Statut de l'inscription (pending, accepted, rejected)
+        'status', 
     ];
 
     /**

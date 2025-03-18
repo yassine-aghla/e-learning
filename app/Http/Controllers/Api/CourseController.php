@@ -36,6 +36,7 @@ class CourseController extends Controller
             'duration' => $request->duration,
             'level' => $request->level,
             'category_id' => $request->category_id,
+            'status'=>$request->status,
         ];
 
         DB::beginTransaction();
@@ -68,6 +69,7 @@ class CourseController extends Controller
         'duration' => $request->duration,
         'level' => $request->level,
         'category_id' => $request->category_id,
+        'status'=>$request->status,
     ];
 
     DB::beginTransaction();
