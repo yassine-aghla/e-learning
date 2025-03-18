@@ -18,7 +18,12 @@ class CourseController extends Controller
     {
         $this->courseRepositoryInterface = $courseRepositoryInterface;
     }
-
+    
+    public function index()
+    {
+        $data = $this->courseRepositoryInterface->index();
+        return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
+    }
 
     public function store(StoreCourseRequest $request)
     {
@@ -69,7 +74,7 @@ class CourseController extends Controller
     try {
         $course = $this->courseRepositoryInterface->update($updateDetails, $id);
         if ($request->has('tag_ids')) {
-            $course->tags()->sync($request->tag_ids); // Utilisez l'objet Course retourné
+            $course->tags()->sync($request->tag_ids);
         }
         DB::commit();
         return ApiResponseClass::sendResponse('Course Updated Successfully', '', 200);
@@ -83,8 +88,8 @@ public function destroy($id)
     DB::beginTransaction();
     try {
         $course = $this->courseRepositoryInterface->getById($id);
-        $course->tags()->detach(); // Détache les tags associés
-        $this->courseRepositoryInterface->delete($id); // Supprime le cours
+        $course->tags()->detach(); 
+        $this->courseRepositoryInterface->delete($id); 
         DB::commit();
         return ApiResponseClass::sendResponse('Course Deleted Successfully', '', 204);
     } catch (\Exception $ex) {
