@@ -8,6 +8,9 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EnrollmentController;
 use App\Http\Controllers\Api\StatsController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\UserController;
 
 Route::apiResource('categories',categoryController::class);
 
@@ -35,6 +38,18 @@ Route::get('/stats/courses', [StatsController::class, 'getCourseStats']);
 Route::get('/stats/categories', [StatsController::class, 'getCategoryStats']);
 Route::get('/stats/tags', [StatsController::class, 'getTagStats']);
 Route::get('/stats/enrollments', [StatsController::class, 'getEnrollmentStats']);
+
+Route::get('/roles', [RoleController::class, 'index']);
+Route::post('/roles', [RoleController::class, 'store']);
+Route::put('/roles/{id}', [RoleController::class, 'update']);
+Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+
+Route::get('/permissions', [PermissionController::class, 'index']);
+Route::post('/permissions', [PermissionController::class, 'store']);
+Route::put('/permissions/{id}', [PermissionController::class, 'update']);
+Route::delete('/permissions/{id}', [PermissionController::class, 'destroy']);
+
+Route::post('/users/{userId}/assign-role', [UserController::class, 'assignRole']);
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
