@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\StatsController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VideoController;
+use Spatie\Permission\Middlewares\RoleMiddleware;
 
 Route::apiResource('categories',categoryController::class);
 
@@ -25,7 +27,7 @@ Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']
 Route::middleware('auth:api')->post('/refresh', [AuthController::class, 'refresh']);
 Route::middleware('auth:api')->get('/user', [AuthController::class, 'user']);
 Route::middleware('auth:api')->post('/user', [AuthController::class, 'update']);
-
+Route::middleware('auth:api')->delete('/users/{id}', [AuthController::class, 'destroy']);
 
 
 Route::middleware('auth:api')->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
@@ -50,6 +52,15 @@ Route::put('/permissions/{id}', [PermissionController::class, 'update']);
 Route::delete('/permissions/{id}', [PermissionController::class, 'destroy']);
 
 Route::post('/users/{userId}/assign-role', [UserController::class, 'assignRole']);
+Route::delete('/users/{userId}/remove-role', [UserController::class, 'removeRole']);
+
+Route::middleware('role:Mentor')->group(function () {
+Route::post('/courses/{id}/videos', [VideoController::class, 'store']);
+Route::get('/courses/{id}/videos', [VideoController::class, 'index']);
+Route::get('/videos/{id}', [VideoController::class, 'show']);
+Route::put('/videos/{id}', [VideoController::class, 'update']);
+Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
+});
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');

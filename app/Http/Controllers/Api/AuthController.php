@@ -63,8 +63,9 @@ class AuthController extends Controller
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|max:255|unique:users,email,' . auth()->id(),
             'password' => 'sometimes|string|min:8',
-            'profile_picture' => 'sometimes|string',
-            'phone_number' => 'sometimes|string',
+            'profile_picture' => 'sometimes',
+            'bio' => 'sometimes|string',
+            'skills' => 'sometimes|string',
         ]);
 
        
@@ -79,5 +80,11 @@ class AuthController extends Controller
             'message' => 'User updated successfully',
             'user' => $user,
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $this->authRepository->deleteUser($id);
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }

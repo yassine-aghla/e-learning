@@ -33,4 +33,20 @@ class UserController extends Controller
             'role' => $role,
         ]);
     }
+     
+    
+public function removeRole(Request $request, $userId)
+{
+   
+    $request->validate([
+        'role' => 'required|string|exists:roles,name',
+    ]);
+    $user = User::findOrFail($userId); 
+    $user->removeRole($request->role);
+
+    return response()->json([
+        'message' => 'Role removed successfully',
+        'user' => $user,
+    ]);
+}
 }

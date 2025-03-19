@@ -10,4 +10,5 @@ interface AuthRepositoryInterface
     public function refresh();
     public function user();
     public function update(array $data);
+    public function deleteUser($id);
 }

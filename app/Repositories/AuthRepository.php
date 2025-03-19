@@ -49,22 +49,39 @@ class AuthRepository implements AuthRepositoryInterface
         if (isset($data['name'])) {
             $user->name = $data['name'];
         }
+
         if (isset($data['email'])) {
             $user->email = $data['email'];
         }
+
         if (isset($data['password'])) {
             $user->password = bcrypt($data['password']);
         }
+
         if (isset($data['profile_picture'])) {
-            $user->profile_picture = $data['profile_picture'];
+            $path = $data['profile_picture']->store('profile', 'public');
+            $user->profile_picture = $path ;
+            }
+       
+        if (isset($data['skills'])) {
+            $user->skills = $data['skills'];
         }
-        if (isset($data['phone_number'])) {
-            $user->phone_number = $data['phone_number'];
+
+        if (isset($data['bio'])) {
+            $user->bio = $data['bio'];
         }
 
         $user->save();
 
-       
         return $user;
+    }
+
+    
+    public function deleteUser($id)
+    {
+        
+        $user = User::findOrFail($id);
+        $user->delete();
+        return true;
     }
 }
