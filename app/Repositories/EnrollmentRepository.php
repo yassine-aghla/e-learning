@@ -22,6 +22,7 @@ class EnrollmentRepository implements EnrollmentRepositoryInterface
             'course_id' => $courseId,
             'user_id' => $userId,
             'status' => 'pending', 
+           
         ]);
     }
 

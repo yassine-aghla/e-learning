@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VideoController;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 use App\Http\Controllers\Api\MentorController;
+use App\Http\Controllers\Api\StudentController;
 
 Route::apiResource('categories',categoryController::class);
 
@@ -67,6 +68,11 @@ Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
 Route::get('mentors/{id}/courses', [MentorController::class, 'getMentorCourses']);
 Route::get('mentors/{id}/students', [MentorController::class, 'getMentorStudents']);
 Route::get('mentors/{id}/performance', [MentorController::class, 'getMentorPerformance']);
+
+
+
+Route::get('students/{id}/courses', [StudentController::class, 'getStudentCourses']);
+Route::get('students/{id}/progress', [StudentController::class, 'getStudentProgress']);
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
