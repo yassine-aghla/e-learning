@@ -37,6 +37,8 @@ class CourseController extends Controller
             'level' => $request->level,
             'category_id' => $request->category_id,
             'status'=>$request->status,
+            'user_id' => auth()->id(),
+
         ];
 
         DB::beginTransaction();
@@ -70,6 +72,7 @@ class CourseController extends Controller
         'level' => $request->level,
         'category_id' => $request->category_id,
         'status'=>$request->status,
+        'user_id' => auth()->id(),
     ];
 
     DB::beginTransaction();

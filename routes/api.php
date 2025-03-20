@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VideoController;
 use Spatie\Permission\Middlewares\RoleMiddleware;
+use App\Http\Controllers\Api\MentorController;
 
 Route::apiResource('categories',categoryController::class);
 
@@ -61,6 +62,12 @@ Route::get('/videos/{id}', [VideoController::class, 'show']);
 Route::put('/videos/{id}', [VideoController::class, 'update']);
 Route::delete('/videos/{id}', [VideoController::class, 'destroy']);
 });
+
+
+Route::get('mentors/{id}/courses', [MentorController::class, 'getMentorCourses']);
+Route::get('mentors/{id}/students', [MentorController::class, 'getMentorStudents']);
+Route::get('mentors/{id}/performance', [MentorController::class, 'getMentorPerformance']);
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');

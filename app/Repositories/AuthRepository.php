@@ -79,7 +79,6 @@ class AuthRepository implements AuthRepositoryInterface
     
     public function deleteUser($id)
     {
-        
         $user = User::findOrFail($id);
         $user->delete();
         return true;
