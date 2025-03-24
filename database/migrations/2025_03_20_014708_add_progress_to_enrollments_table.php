@@ -9,7 +9,7 @@ class AddProgressToEnrollmentsTable extends Migration
     public function up()
     {
         Schema::table('enrollments', function (Blueprint $table) {
-            $table->integer('progress')->default(0); // Ajoutez cette ligne
+            $table->integer('progress')->default(0); 
         });
     }
 

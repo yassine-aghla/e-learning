@@ -34,7 +34,9 @@ Route::middleware('auth:api')->delete('/users/{id}', [AuthController::class, 'de
 
 Route::middleware('auth:api')->post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll']);
 Route::middleware('auth:api')->get('/courses/{id}/enrollments', [EnrollmentController::class, 'getEnrollmentsByCourse']);
+Route::middleware('role:Mentor|Admin')->group(function () {
 Route::middleware('auth:api')->put('/enrollments/{id}', [EnrollmentController::class, 'updateEnrollmentStatus']);
+});
 Route::middleware('auth:api')->delete('/enrollments/{id}', [EnrollmentController::class, 'deleteEnrollment']);
 
 
