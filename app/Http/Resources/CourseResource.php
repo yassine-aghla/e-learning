@@ -18,6 +18,7 @@ class CourseResource extends JsonResource
             'duration' => $this->duration,
             'level' => $this->level,
             'category_id' => $this->category_id,
+            'status'=>$this->status,
             'category' => $this->category->name,
             'tags' => TagResource::collection($this->tags),
             'tags' => $this->tags->pluck('name'), 

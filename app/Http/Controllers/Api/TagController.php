@@ -27,7 +27,7 @@ class TagController extends Controller
 
     public function store(StoreTagRequest $request)
 {
-    $tagsData = $request->tags; // Récupère les tags sous forme de tableau
+    $tagsData = $request->tags; 
 
     DB::beginTransaction();
     try {
