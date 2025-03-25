@@ -33,4 +33,12 @@ class CourseRepository implements CourseRepositoryInterface
         $course = Course::findOrFail($id);
         $course->delete();
     }
+
+    public function search($query)
+{
+    return Course::where('title', 'like', '%'.$query.'%')
+                ->orWhere('description', 'like', '%'.$query.'%')->
+                orWhere('price','=',$query)
+                ->get();
+}
 }
