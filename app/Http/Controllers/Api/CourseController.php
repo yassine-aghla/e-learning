@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Course;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Interfaces\CourseRepositoryInterface;
@@ -19,8 +20,13 @@ class CourseController extends Controller
         $this->courseRepositoryInterface = $courseRepositoryInterface;
     }
     
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $data = $this->courseRepositoryInterface->search($request->query('search'));
+            return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
+        }
+
         $data = $this->courseRepositoryInterface->index();
         return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
     }

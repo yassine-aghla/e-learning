@@ -16,6 +16,8 @@ use Spatie\Permission\Middlewares\RoleMiddleware;
 use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Api\StudentController;
 
+use App\Http\Controllers\StripeController;
+
 Route::apiResource('categories',categoryController::class);
 
 Route::apiResource('tags', TagController::class);
@@ -75,6 +77,16 @@ Route::get('mentors/{id}/performance', [MentorController::class, 'getMentorPerfo
 
 Route::get('students/{id}/courses', [StudentController::class, 'getStudentCourses']);
 Route::get('students/{id}/progress', [StudentController::class, 'getStudentProgress']);
+
+
+// Route::post('/create-payment', [PayPalController::class, 'createPayment']);
+// Route::get('/success', [PayPalController::class, 'executePayment'])->name('paypal.success');
+// Route::get('/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+Route::get("/payment",[StripeController::class,"index"])->name("payment.index");
+Route::post("/payment/checkout/{id}",[EnrollmentController::class,"enroll"])->name("payment.checkout");
+Route::get("/payment/success/{course}",[StripeController::class,"success"])->name("payment.success");
+Route::get('/payments/history', [EnrollmentController::class, 'paymentHistory']);
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
