@@ -9,5 +9,6 @@ interface CourseRepositoryInterface
     public function update(array $data, $id);
     public function delete($id);
     public function search($query);
+    public function filterByCategoryAndLevel($categoryId, $level);
 
 }

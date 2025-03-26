@@ -87,7 +87,7 @@ Route::get("/payment",[StripeController::class,"index"])->name("payment.index");
 Route::post("/payment/checkout/{id}",[EnrollmentController::class,"enroll"])->name("payment.checkout");
 Route::get("/payment/success/{course}",[StripeController::class,"success"])->name("payment.success");
 Route::get('/payments/history', [EnrollmentController::class, 'paymentHistory']);
-
+Route::get('/mentors', [MentorController::class, 'search']);
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');

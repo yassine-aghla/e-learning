@@ -37,8 +37,22 @@ class CourseRepository implements CourseRepositoryInterface
     public function search($query)
 {
     return Course::where('title', 'like', '%'.$query.'%')
-                ->orWhere('description', 'like', '%'.$query.'%')->
-                orWhere('price','=',$query)
+                ->orWhere('description', 'like', '%'.$query.'%')
                 ->get();
+}
+
+public function filterByCategoryAndLevel($categoryId, $level)
+{
+    $query = Course::query();
+    
+    if ($categoryId) {
+        $query->where('category_id', $categoryId);
+    }
+    
+    if ($level) {
+        $query->where('level', $level);
+    }
+    
+    return $query->get();
 }
 }

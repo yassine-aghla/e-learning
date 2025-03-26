@@ -24,10 +24,14 @@ class CourseController extends Controller
     {
         if ($request->has('search')) {
             $data = $this->courseRepositoryInterface->search($request->query('search'));
-            return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
+        } elseif ($request->has('category') || $request->has('difficulty')) {
+            $data = $this->courseRepositoryInterface->filterByCategoryAndLevel(
+                $request->query('category'),
+                $request->query('difficulty')
+            );
+        } else {
+            $data = $this->courseRepositoryInterface->index();
         }
-
-        $data = $this->courseRepositoryInterface->index();
         return ApiResponseClass::sendResponse(CourseResource::collection($data), '', 200);
     }
 
