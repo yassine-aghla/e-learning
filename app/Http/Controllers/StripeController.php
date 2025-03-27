@@ -49,6 +49,7 @@ class StripeController extends Controller
     {
         try {
             $user = Auth::user();
+            
 
             $payment = Payment::where("user_id", $user->id)
                 ->where("course_id", $course_id)
@@ -67,7 +68,7 @@ class StripeController extends Controller
                 'payment_status' => 'payed'
             ]);
 
-            $enroll = $this->enrollmentRepository->enroll($user->id, $course_id);
+            $enroll = $this->enrollmentRepository->enroll($course_id , $user->id);
             // dd($enroll);
             return response()->json([
                 "message" => 'Paiement réussi et inscription confirmée !'

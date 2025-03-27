@@ -11,7 +11,7 @@ class CreateEnrollmentsTable extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('status')->default('pending'); 
+            $table->string('status')->default('pending');
             $table->timestamps(); 
         });
     }

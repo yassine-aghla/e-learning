@@ -35,6 +35,7 @@ class EnrollmentController extends Controller
 
     public function enroll(Request $request, $course_id)
     {
+        
         $userId = Auth::id();
 
         $paymentExists = Payment::where('user_id', $userId)
