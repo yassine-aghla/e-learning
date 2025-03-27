@@ -41,12 +41,14 @@ class CourseRepository implements CourseRepositoryInterface
                 ->get();
 }
 
-public function filterByCategoryAndLevel($categoryId, $level)
+public function filterByCategoryAndLevel($categoryName, $level)
 {
-    $query = Course::query();
+    $query = Course::query()->with('category'); 
     
-    if ($categoryId) {
-        $query->where('category_id', $categoryId);
+    if ($categoryName) {
+        $query->whereHas('category', function($q) use ($categoryName) {
+            $q->where('name', 'like', '%'.$categoryName.'%');
+        });
     }
     
     if ($level) {
@@ -55,4 +57,5 @@ public function filterByCategoryAndLevel($categoryId, $level)
     
     return $query->get();
 }
+
 }

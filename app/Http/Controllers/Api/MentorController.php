@@ -54,6 +54,7 @@ class MentorController extends Controller
 
     public function search(Request $request)
     {
+      
         $query = $request->query('search');
         
        
@@ -69,11 +70,11 @@ class MentorController extends Controller
         $mentors = User::role($mentorRole)
                       ->where(function($q) use ($query) {
                           $q->where('name', 'like', '%'.$query.'%')
-                            ->orWhere('expertise', 'like', '%'.$query.'%')
+                            // ->orWhere('expertise', 'like', '%'.$query.'%')
                             ->orWhere('bio', 'like', '%'.$query.'%');
                       })
                       ->with('roles:name')
-                      ->select('id', 'name', 'email', 'expertise', 'bio')
+                      ->select('id', 'name', 'email', 'bio')
                       ->get();
         
         return response()->json([

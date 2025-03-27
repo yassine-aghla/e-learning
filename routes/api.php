@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\VideoController;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Api\StudentController;
+use App\Http\Controllers\Api\BadgeController;
 
 use App\Http\Controllers\StripeController;
 
@@ -88,6 +89,13 @@ Route::post("/payment/checkout/{id}",[EnrollmentController::class,"enroll"])->na
 Route::get("/payment/success/{course}",[StripeController::class,"success"])->name("payment.success");
 Route::get('/payments/history', [EnrollmentController::class, 'paymentHistory']);
 Route::get('/mentors', [MentorController::class, 'search']);
+
+Route::post('/badges', [BadgeController::class, 'store']);
+Route::put('/badges/{id}', [BadgeController::class, 'update']);
+Route::delete('/badges/{id}', [BadgeController::class, 'destroy']);
+
+Route::get('/students/{id}/badges', [StudentBadgeController::class, 'index']);
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
